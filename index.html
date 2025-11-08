@@ -1,76 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Libon Forward Citizen Portal</title>
-<link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libon Citizen Portal</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <div class="header-left">
-    <div class="seal-left"><img src="Screenshot_7-11-2025_143552_www.facebook.com-removebg-preview.png" alt="Libon Forward" style="height:52px;object-fit:contain" /></div>
-    <div><h1>Libon Forward Citizen Portal</h1><p>Serbisyong Totoo, Para sa Libongeño — Municipality of Libon, Albay</p></div>
-  </div>
-  <div class="header-right">
-    <div style="text-align:center;margin-right:10px;color:rgba(255,255,255,0.95);font-weight:700">Official Website</div>
-    <button class="btn" onclick="document.getElementById('reportSection').scrollIntoView({behavior:'smooth'})">Report an Issue</button>
-    <button class="btn alt" id="adminBtn" onclick="openLogin()">Admin</button>
-    <div class="seal-right"><img src="3ca28a81-186f-45bf-b640-38719b0032f9.png" alt="Municipality Seal" style="height:56px;object-fit:contain" /></div>
-  </div>
-</header>
-<main id="citizenView">
-<section class="card">
-  <h2>Welcome, Libongeños! 👋</h2>
-  <p class="muted">Your digital portal for public services, news, and emergency support.</p>
-  <div style="margin-top:12px">
-    <button class="btn" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Online Services</button>
-    <button class="btn alt" onclick="document.getElementById('news').scrollIntoView({behavior:'smooth'})">Latest News</button>
-    <button class="btn alt" onclick="document.getElementById('reportSection').scrollIntoView({behavior:'smooth'})">Submit Report</button>
-  </div>
-</section>
+    <header>
+        <h1>Libon Citizen Portal</h1>
+        <button id="adminBtn">Admin</button>
+    </header>
 
-<section id="services" class="card" style="margin-top:18px">
-  <h3>Online Services</h3>
-  <div class="card-grid">
-    <div class="service-card"><h3>Business Permit</h3><p class="muted">Apply or renew business permits.</p></div>
-    <div class="service-card"><h3>Civil Registry</h3><p class="muted">Request birth/marriage/death records.</p></div>
-    <div class="service-card"><h3>Real Property Tax</h3><p class="muted">RPT assessment and payments (demo).</p></div>
-    <div class="service-card"><h3>Report an Issue</h3><p class="muted">Submit concerns like flooding, garbage, streetlight problems.</p></div>
-  </div>
-</section>
+    <main>
+        <section class="services">
+            <div class="card" data-service="water">Water Services</div>
+            <div class="card" data-service="electricity">Electricity Services</div>
+            <div class="card" data-service="health">Health Services</div>
+        </section>
+        <section class="news">
+            <h2>News & Updates</h2>
+            <ul id="newsList"></ul>
+        </section>
+    </main>
 
-<section id="news" style="margin-top:18px">
-  <h3>News & Announcements</h3>
-  <div id="newsArea" class="card-grid"></div>
-</section>
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span id="closeLogin" class="close">&times;</span>
+            <h2>Admin Login</h2>
+            <input type="email" id="adminEmail" placeholder="Email">
+            <input type="password" id="adminPassword" placeholder="Password">
+            <button id="loginBtn">Login</button>
+            <p id="loginError"></p>
+        </div>
+    </div>
 
-<section id="reportSection" style="margin-top:18px">
-  <h3>Submit a Report / Concern</h3>
-  <div class="card">
-    <form id="reportForm">
-      <label class="muted">Your Name</label><input name="citizen" required placeholder="Juan dela Cruz" />
-      <div style="display:grid;grid-template-columns:1fr 150px;gap:10px;margin-top:8px">
-        <div><label class="muted">Issue</label><input name="issue" required /></div>
-        <div><label class="muted">Priority</label><select name="priority"><option>Low</option><option selected>Normal</option><option>High</option></select></div>
-      </div>
-      <div style="margin-top:8px"><label class="muted">Details (optional)</label><textarea name="details"></textarea></div>
-      <div style="margin-top:12px;display:flex;gap:8px"><button class="btn" type="submit">Submit Report</button><button type="button" class="btn alt" onclick="document.getElementById('reportForm').reset()">Clear</button><div id="reportMsg" style="margin-left:auto" class="muted"></div></div>
-    </form>
-  </div>
-</section>
-
-<footer style="margin-top:22px">© 2025 Municipality of Libon, Albay — Powered by Libon Forward</footer>
-</main>
-
-<!-- Admin (hidden until login) -->
-<main id="adminView" class="hidden"></main>
-
-<!-- modal and login -->
-<div id="modal" class="modal-backdrop hidden"><div class="modal"><div style="display:flex;justify-content:space-between;align-items:center"><div id="modalTitle">Modal</div><button class="btn" onclick="closeModal()">Close</button></div><div id="modalBody" style="margin-top:12px"></div></div></div>
-
-<div id="loginModal" class="modal-backdrop hidden"><div class="modal"><div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:800">Admin Login</div><button class="btn" onclick="closeLogin()">Close</button></div><div style="margin-top:12px"><div class="card"><label class="muted">Email</label><input id="loginEmail" placeholder="Libonforward.gov.ph" /><label class="muted" style="margin-top:8px">Password</label><input id="loginPassword" type="password" /><div style="display:flex;gap:8px;margin-top:12px"><button class="btn" onclick="doLogin()">Login</button><button class="btn alt" onclick="fillDemoLogin()">Fill demo</button><div style="margin-left:auto" class="muted small">Demo email: Libonforward.gov.ph</div></div></div></div></div></div>
-
-<script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
